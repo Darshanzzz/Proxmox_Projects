@@ -1,0 +1,9 @@
+---
+
+- name: give sudo privilege
+  lineinfile:
+    path: /etc/sudoers.d/darshan.conf
+    line: "darshan      ALL=(ALL)       NOPASSWD: ALL" 
+    state: present
+    create: true
+    validate:  /usr/sbin/visudo -cf %s

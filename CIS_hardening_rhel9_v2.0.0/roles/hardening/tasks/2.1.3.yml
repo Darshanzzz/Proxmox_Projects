@@ -1,0 +1,21 @@
+- block:
+    ## 2.1.1 Ensure dhcpd6 services are not in use
+    - name: stop dhcpd6.service service
+      service:
+        name: "dhcpd6.service"
+        state: stopped
+
+
+    ## IF  no package is a dependancy then uninstall
+    # - name: uninstall dhcpd6 service
+    #   yum:
+    #     name: dhcp-server
+    #     state: absent
+
+    ## IF there is a package with dependancy then mask
+    - name: mask dhcpd6 service
+      systemd:
+        name:  "dhcpd6.service"
+        mask: true
+
+  when: "'dhcpd6.service' in ansible_facts.services and 'not-found' not in ansible_facts.services['dhcpd6.service']['status']" 

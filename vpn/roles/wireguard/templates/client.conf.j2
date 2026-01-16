@@ -1,0 +1,10 @@
+[Interface]
+PrivateKey = {{ client_privatekey.stdout_lines | join() }}
+Address = {{ client2.address }} 
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = {{ publickey.stdout_lines | join() }}
+Endpoint = [{{ ansible_default_ipv6.address }}]:51820
+AllowedIPs = 10.50.0.0/24, 192.168.188.0/24
+PersistentKeepalive = 25

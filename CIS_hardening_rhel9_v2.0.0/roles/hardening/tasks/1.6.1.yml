@@ -1,0 +1,44 @@
+#1.6.1 Ensure system wide crypto policy is not set to legacy 
+---
+
+- name: add sample file
+  copy:
+    src: files/sample-crypto.txt
+    dest: /etc/crypto-policies/sample-crypto.txt
+
+- name: change line to default
+  command: grep "^LEGACY" /etc/crypto-policies/sample-crypto.txt
+  register: grep
+
+- name: get date/time
+  command: date +%D-%T
+  register: date_time
+
+
+
+- set_fact:
+    log_out:  "{{ date_time.stdout_lines | join() }} ## 1.6.1 ##  LINEINFILE ## /etc/crypto-policies/sample-crypto.txt ## {{ grep.stdout_lines | join() }} ## DEFAULT"
+
+- name: change line to default
+  lineinfile:
+    path: /etc/crypto-policies/sample-crypto.txt
+    line: "DEFAULT"
+    regexp: "^LEGACY"
+  register: changes
+  notify: update crypto policy
+
+- name: add log line
+  lineinfile:
+    path: "{{ CIS_log_file }}"
+    line: "{{ log_out }}"
+    
+
+  
+
+
+
+
+
+
+
+  

@@ -1,0 +1,13 @@
+# defaults file for wireguard
+
+# PrivateKey = <CLIENT_PRIVATE_KEY>
+# PublicKey = <SERVER_PUBLIC_KEY>
+# Endpoint = <DEINE_PUBLIC_IP>:51820
+
+# [Interface]
+# Address = 10.50.0.1/24
+
+# [Peer]
+# PublicKey = <SERVER_PUBLIC_KEY>
+# Endpoint = <DEINE_PUBLIC_IP>:51820
+# AllowedIPs = 10.50.0.0/24, 192.168.188.0/24

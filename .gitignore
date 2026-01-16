@@ -1,0 +1,7 @@
+# Secrets
+.env
+*.key
+*.pem
+
+vault*
+wg0.conf.j2

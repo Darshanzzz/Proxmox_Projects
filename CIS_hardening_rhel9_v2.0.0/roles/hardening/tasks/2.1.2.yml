@@ -1,0 +1,29 @@
+- block:
+    ## 2.1.1 Ensure avahi-daemon services are not in use
+    - name: stop avahi-daemon service
+      service:
+        name: "{{ item }}"
+        state: stopped
+      loop:
+        - avahi-daemon.service
+        - avahi-daemon.socket
+
+
+    - name: mask avahi-daemon service
+      systemd:
+        name:  "{{ item }}"
+        masked: true
+      loop:
+        - avahi-daemon.service
+        - avahi-daemon.socket   
+
+  when: avahi_required
+
+  # IF  no package is a dependancy then uninstall
+- name: uninstall avahi-daemon service
+  yum:
+    name: avahi-daemon
+    state: absent
+  when: avahi_required == false
+
+# IF there is a package with dependancy then mask

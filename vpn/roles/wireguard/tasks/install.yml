@@ -1,0 +1,29 @@
+- name: Update and install
+  apt: 
+    name: wireguard, iptables
+    state: present
+    update_cache: yes
+
+- name: set dir permissions
+  file:
+    path: /etc/wireguard
+    state: directory
+    mode: '2700'
+
+
+
+- name: activate port forwardind
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_set: true
+    state: present
+    reload: true
+
+- name: activate port forwardind
+  sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: '1'
+    sysctl_set: true
+    state: present
+    reload: true

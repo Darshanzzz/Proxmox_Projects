@@ -1,0 +1,24 @@
+- name: check server.key path
+  stat:
+    path: /etc/wireguard/server.key
+  register: privatekeypath
+
+- name: check server.pub path
+  stat:
+    path: /etc/wireguard/server.pub
+  register: pubkeypath
+
+- debug:
+    msg: "{{ privatekeypath.stat.exists }} {{ pubkeypath.stat.exists }}"
+
+- name: create private key and pub key for server
+  shell: 'wg genkey | tee /etc/wireguard/server.key | wg pubkey > /etc/wireguard/server.pub'
+  when: ( privatekeypath.stat.exists == False ) and ( pubkeypath.stat.exists == False )
+
+
+- shell: cat /etc/wireguard/server.key
+  register: privatekey
+
+- shell: cat /etc/wireguard/server.pub
+  register: publickey
+

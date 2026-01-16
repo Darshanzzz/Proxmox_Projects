@@ -1,0 +1,8 @@
+---
+
+- name: hardening rhel9
+  hosts: servers
+  roles:
+    - hardening
+
+  

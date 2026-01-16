@@ -1,0 +1,15 @@
+- name: populate ansible service facts of servers
+  service_facts:
+
+- name: create directory
+  file:
+    path: /var/CIS/log
+    state: directory
+    mode: "2744"
+
+- name: create log file
+  copy:
+    src: files/CIS_hardening.log
+    dest: /var/CIS/log/CIS_hardening.log
+    force: false
+    owner: automation

@@ -1,0 +1,37 @@
+- name: create dir for all clients
+  file:
+    path: "{{ clients_dir }}"
+    state: directory
+
+- name: create directory
+  file:
+    path: "{{ client2.dir }}"
+    state: directory
+
+- name: check client.key path
+  stat:
+    path: "{{ client2.private }}"
+  register: client_privkeypath
+  tags: clientconf  
+
+- name: check client.pub path
+  stat:
+    path: "{{ client2.pub }}"
+  register: client_pubkeypath
+  tags: clientconf
+
+# - debug:
+#     msg: "{{ privatekeypath.stat.exists }} {{ pubkeypath.stat.exists }}"
+
+- name: create private key and pub key for client
+  shell: 'wg genkey | tee {{ client2.private }} | wg pubkey > {{ client2.pub }}'
+  when: ( client_privkeypath.stat.exists == False ) and ( client_pubkeypath.stat.exists == False )
+  tags: clientconf
+
+- shell: "cat {{ client2.private }}"
+  register: client_privatekey
+  tags: clientconf
+
+- shell: "cat {{ client2.pub }}"
+  register: client_publickey
+  tags: clientconf  

@@ -1,0 +1,23 @@
+
+# - debug:
+#     msg: "{{ ansible_facts.services['autofs.service']['status'] }}"
+- block:
+    ## 2.1.1 Ensure autofs services are not in use
+    - name: stop autofs service
+      service:
+        name: autofs
+        state: stopped
+
+    - name: mask autofs service
+      systemd:
+        name:  autofs.service
+        mask: true
+  when: autofs_required 
+
+- block:
+    - name: uninstall autofs service
+      yum:
+        name: autofs
+        state: absent
+  when: autofs_required == false
+

@@ -1,0 +1,10 @@
+---
+# handlers file for hardening
+- name: update crypto policy
+  shell: update-crypto-policies
+
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+    

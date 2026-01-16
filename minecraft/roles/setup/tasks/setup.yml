@@ -1,0 +1,25 @@
+# tasks file for setup
+# - name: update packages
+#   apt:
+#     update_cache: true
+#     upgrade: yes
+
+- name: install java
+  apt:
+    name: openjdk-21-jre-headless
+    state: present
+  notify:
+    - check version
+    - print version
+
+  
+- name: create directory
+  file:
+    path: /etc/minecraft
+    state: directory
+    owner: darshan
+    group: darshan
+    mode: '0755'
+    recurse: yes
+
+  

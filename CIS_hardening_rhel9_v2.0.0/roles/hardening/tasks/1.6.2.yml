@@ -1,0 +1,7 @@
+- name: chang cyrpto line
+  lineinfile:
+    path: /etc/sysconfig/sshd
+    regexp: '^CRYPTO'
+    line: '#CRYPTO'
+    state: present
+  notify: restart sshd

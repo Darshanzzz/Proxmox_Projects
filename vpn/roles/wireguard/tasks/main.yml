@@ -1,0 +1,40 @@
+---
+# tasks file for wireguard
+- import_tasks: install.yml
+
+- import_tasks: key.yml
+
+## Change this section
+# Note: change the client.conf.j2 template file too
+
+- import_tasks: clientkey.yml
+  notify: restart wg0
+
+- name: create wg0.conf
+  template:
+    src: wg0.conf.j2
+    dest: /etc/wireguard/wg0.conf
+  notify: restart wg0  
+  tags: clientconf 
+
+- name: create conf for client
+  template:
+    src: client.conf.j2
+    dest: "{{ client2.dir }}/{{ client2.name }}.conf"
+  notify: restart wg0  
+  tags: clientconf
+
+- name: start wireguard
+  service:
+    name: wg-quick@wg0
+    state: started
+    enabled: true
+
+- name: fetch client conf file
+  fetch:
+    src: "{{ client2.dir }}/{{ client2.name }}.conf"
+    dest: "/root/vpn/client_conf/{{ client2.name }}.conf"
+    flat: yes
+
+
+

@@ -1,0 +1,12 @@
+--- 
+- name: test custom mod
+  logging:
+    path: "/etc/crypto-policies/config"
+    cisid: 1.6.1
+    before: LEGACY
+    after: DEFAULT
+  register: output
+
+- debug:
+    msg: "{{ output }}"
+

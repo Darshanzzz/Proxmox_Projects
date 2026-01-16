@@ -1,0 +1,14 @@
+RUNID ## DATE : TIME ## CISID ## METHOD ## PATH ## BEF ## AFTER
+
+date00 ## 15/12/2025 : 1131 ## 2.1.2 ## SYSTEMD/SERVICE ## started ## stopped
+date00 ## 15/12/2025 : 1131 ## 2.1.2 ## SYSTEMD/SERVICE ## unmasked ## masked
+
+
+date00 ## 16/12/2025 : 1131 ## 2.1.1 ## YUM ## installed ## NIL
+
+
+date00 ## 16/12/2025 : 1131 ## 1.6.1 ## LINEINFILE ## /etc/crypto-policies/config ## LEGACY ## DEFAULT
+
+
+
+

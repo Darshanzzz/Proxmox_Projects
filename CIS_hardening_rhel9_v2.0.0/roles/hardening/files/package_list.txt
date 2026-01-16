@@ -1,0 +1,4 @@
+autofs
+avahi
+dhcp-server
+bind

@@ -1,0 +1,17 @@
+---
+# handlers file for setup
+- name: check version
+  shell: java -version
+  register: java_version
+
+- name: print version
+  debug: msg="{{ java_version.stdout_lines }} {{ java_version.stderr_lines }}"
+
+- name: start server
+  shell:
+    cmd: java -Xms2G -Xmx3G -jar /etc/minecraft/server.jar nogui
+    chdir: /etc/minecraft/
+  register: start_output
+
+- name: print start msg
+  debug: msg="{{ start_output.stdout_lines }} {{ start_output.stderr_lines }}"

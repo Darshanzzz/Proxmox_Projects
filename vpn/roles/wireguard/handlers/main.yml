@@ -1,0 +1,6 @@
+---
+# handlers file for wireguard
+- name: restart wg0
+  service:
+    name: wg-quick@wg0
+    state: restarted

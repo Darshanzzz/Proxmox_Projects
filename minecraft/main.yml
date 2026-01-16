@@ -1,0 +1,6 @@
+---
+
+- name: minecraft playbook
+  hosts: minecraft-server
+  roles:
+     - roles/setup

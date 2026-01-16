@@ -1,0 +1,19 @@
+---
+# Package required for dependecies
+# 2.1.1
+autofs_required: false
+# 2.1.2
+avahi_required: true
+# 2.1.3:
+dhcp-server: false
+# 2.1.4
+bind_required: false
+
+
+
+####
+
+CIS_log_dir: /var/CIS/log
+CIS_log_file: /var/CIS/log/CIS_hardening.log
+
+### 

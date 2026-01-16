@@ -1,0 +1,24 @@
+---
+
+# paths
+clients_dir: /etc/wireguard/clients
+
+
+#client  configs
+client1:
+  name: client1
+  address: 10.50.0.2
+  dir: /etc/wireguard/clients/client1
+  private: /etc/wireguard/clients/client1/client1.key
+  pub: /etc/wireguard/clients/client1/client1.pub
+
+client2:
+  name: client2
+  address: 10.50.0.3
+  dir: /etc/wireguard/clients/client2
+  private: /etc/wireguard/clients/client2/client2.key
+  pub: /etc/wireguard/clients/client2/client2.pub
+
+
+    
+

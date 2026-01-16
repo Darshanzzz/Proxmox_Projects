@@ -1,0 +1,70 @@
+---
+
+- name: install server
+  get_url:
+    url: "{{ server_url }}"
+    dest: /etc/minecraft/server.jar
+
+- name: allow fw port
+  ufw:
+    rule: allow
+    port: '25565'
+    proto: tcp
+    state: enabled
+
+- name: copy eula
+  copy:
+    src: files/eula.txt
+    dest: /etc/minecraft
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0744'
+
+- name: copy systemd unit file
+  copy:
+    src: files/minecraft.service
+    dest: /etc/systemd/system/minecraft.service
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: '0744'
+
+
+- name: reload daemon
+  systemd:
+    name: minecraft.service
+    state: started
+    enabled: true
+    daemon_reload: true
+
+    
+
+# - block: 
+#   - name: start server
+#     shell:
+#       cmd: java -Xms2G -Xmx3G -jar /etc/minecraft/server.jar nogui
+#       chdir: /etc/minecraft/
+#     register: start_output
+
+#   - name: print start msg
+#     debug: msg="{{ start_output.stdout_lines }} {{ start_output.stderr_lines }}"
+
+#   rescue: 
+
+#   - name: edit EULA
+#     lineinfile:
+#       path: /etc/minecraft/eula.txt
+#       regexp: "^eula=false"
+#       line: "eula=true"
+#       state: present
+
+#   - name: start server
+#     shell:
+#       cmd: java -Xms2G -Xmx3G -jar /etc/minecraft/server.jar nogui
+#       chdir: /etc/minecraft/
+#     register: start_output2
+
+
+
+
+
+ 
